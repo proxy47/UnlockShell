@@ -1,0 +1,9 @@
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\bin\Debug\UnlockShell.exe.config
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\bin\Debug\UnlockShell.exe
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\bin\Debug\UnlockShell.pdb
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\obj\Debug\UnlockShell.csprojAssemblyReference.cache
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\obj\Debug\UnlockShell.Properties.Resources.resources
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\obj\Debug\UnlockShell.csproj.GenerateResource.cache
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\obj\Debug\UnlockShell.csproj.CoreCompileInputs.cache
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\obj\Debug\UnlockShell.exe
+C:\Users\iusti\source\repos\UnlockShell\UnlockShell\obj\Debug\UnlockShell.pdb
