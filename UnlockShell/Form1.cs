@@ -13,6 +13,7 @@ namespace UnlockShell
     public partial class Form1 : Form
     {
         public List<string[]> array_LE;
+        public StringBuilder my_sb = new StringBuilder();
         public String database_name_s = @".\database.ini";
 
         public Form1()
@@ -39,6 +40,21 @@ namespace UnlockShell
         {
             Form2 f2 = new Form2();
             f2.ShowDialog();
+
+            while (f2.valueSet_b != true)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+            my_sb = f2.returnStringBuilt();
+
+            array_LE.Add(my_sb.ToString().Split(';'));
+            array_LE.Sort();
+
+            listView1.Items.Clear();
+            foreach (var le in array_LE)
+            {
+                listView1.Items.Add(new ListViewItem(le));
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -48,6 +64,39 @@ namespace UnlockShell
                 int index = listView1.SelectedIndices[0];
                 Form2 f2 = new Form2(array_LE.ElementAt(index));
                 f2.ShowDialog();
+
+                while (f2.valueSet_b != true)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                }
+                my_sb = f2.returnStringBuilt();
+
+                array_LE.RemoveAt(index);
+                array_LE.Add(my_sb.ToString().Split(';'));
+                array_LE.Sort();
+
+                listView1.Items.Clear();
+                foreach (var le in array_LE)
+                {
+                    listView1.Items.Add(new ListViewItem(le));
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count != 0)
+            {
+                int index = listView1.SelectedIndices[0];
+                
+                array_LE.RemoveAt(index);
+                array_LE.Sort();
+
+                listView1.Items.Clear();
+                foreach (var le in array_LE)
+                {
+                    listView1.Items.Add(new ListViewItem(le));
+                }
             }
         }
     }

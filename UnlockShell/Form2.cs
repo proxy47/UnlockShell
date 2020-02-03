@@ -12,7 +12,14 @@ namespace UnlockShell
 {
     public partial class Form2 : Form
     {
+        StringBuilder sb = new StringBuilder();
         public string[] stringarray;
+        public bool valueSet_b = false;
+
+        public StringBuilder returnStringBuilt()
+        {
+            return sb;
+        }
 
         public Form2()
         {
@@ -62,7 +69,6 @@ namespace UnlockShell
             if (((textBox1.Text != null) && (textBox1.Text != String.Empty)) &&
                 ((textBox5.Text != null) && (textBox5.Text != String.Empty)))
             {
-                StringBuilder sb = new StringBuilder();
                 sb.Append(textBox1.Text.ToString());
                 sb.Append(';');
                 sb.Append((textBox2.Text.ToString() != String.Empty)?textBox2.Text.ToString():" ");
@@ -73,6 +79,39 @@ namespace UnlockShell
                 sb.Append(';');
                 sb.Append(textBox5.Text.ToString());
             }
+
+            if (sb.Equals(String.Empty))
+            {
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+            }
+            valueSet_b = true;
+
+            this.Close();
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (sb.Equals(String.Empty))
+            {
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+            }
+            valueSet_b = true;
         }
     }
 }
