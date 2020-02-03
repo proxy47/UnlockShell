@@ -12,7 +12,7 @@ namespace UnlockShell
 {
     public partial class Form1 : Form
     {
-        public List<ListEntry> array_LE;
+        public List<string[]> array_LE;
         public String database_name_s = @".\database.ini";
 
         public Form1()
@@ -25,6 +25,11 @@ namespace UnlockShell
             LoadFromFile lff = new LoadFromFile();
             array_LE = lff.loadValues();
 
+            listView1.Items.Clear();
+            foreach (var le in array_LE)
+            {
+                listView1.Items.Add(new ListViewItem(le));
+            }
         }
     }
 
@@ -74,7 +79,8 @@ namespace UnlockShell
         private const char   SeparatorElems      = ';';
         private const char   SeparatorPartNo     = ',';
         private const string database_ini_file_s = @".\database.ini";
-        private List<ListEntry> loadedValues_aLE = new List<ListEntry>();
+        //private List<ListEntry> loadedValues_aLE = new List<ListEntry>();
+        private List<string[]> loadedValues_aLE = new List<string[]>();
 
         public LoadFromFile()
         {
@@ -88,6 +94,7 @@ namespace UnlockShell
 
                 foreach (string line in lines)
                 {
+                    /*
                     string[] elems_of_line = line.Split(SeparatorElems);
                     if (elems_of_line != null)
                     {
@@ -98,6 +105,9 @@ namespace UnlockShell
                                                                 elems_of_line[(int)My_enum.PART_NO_LIST])
                                                  );
                     }
+                    */
+                    loadedValues_aLE.Add(line.Split(SeparatorElems));
+                    //loadedValues_aLE = line.Split(SeparatorElems);
 
                     // debug message
                     System.Console.WriteLine(line);                    
@@ -108,7 +118,7 @@ namespace UnlockShell
             }
         }
 
-        public List<ListEntry> loadValues()
+        public List<string[]> loadValues()
         {
             return this.loadedValues_aLE;
         }
