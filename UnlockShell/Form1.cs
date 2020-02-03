@@ -18,6 +18,8 @@ namespace UnlockShell
         public Form1()
         {
             InitializeComponent();
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -25,10 +27,27 @@ namespace UnlockShell
             LoadFromFile lff = new LoadFromFile();
             array_LE = lff.loadValues();
 
+            listView1.FullRowSelect = true;
             listView1.Items.Clear();
             foreach (var le in array_LE)
             {
                 listView1.Items.Add(new ListViewItem(le));
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            f2.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count != 0)
+            {
+                int index = listView1.SelectedIndices[0];
+                Form2 f2 = new Form2(array_LE.ElementAt(index));
+                f2.ShowDialog();
             }
         }
     }
@@ -79,7 +98,6 @@ namespace UnlockShell
         private const char   SeparatorElems      = ';';
         private const char   SeparatorPartNo     = ',';
         private const string database_ini_file_s = @".\database.ini";
-        //private List<ListEntry> loadedValues_aLE = new List<ListEntry>();
         private List<string[]> loadedValues_aLE = new List<string[]>();
 
         public LoadFromFile()
@@ -94,23 +112,7 @@ namespace UnlockShell
 
                 foreach (string line in lines)
                 {
-                    /*
-                    string[] elems_of_line = line.Split(SeparatorElems);
-                    if (elems_of_line != null)
-                    {
-                        this.loadedValues_aLE.Add(new ListEntry(elems_of_line[(int)My_enum.MODEL_NAME],
-                                                                elems_of_line[(int)My_enum.MANUFACTURER_NAME],
-                                                                elems_of_line[(int)My_enum.DESTINATION_NAME],
-                                                                elems_of_line[(int)My_enum.EXECUTABLE_PATH],
-                                                                elems_of_line[(int)My_enum.PART_NO_LIST])
-                                                 );
-                    }
-                    */
                     loadedValues_aLE.Add(line.Split(SeparatorElems));
-                    //loadedValues_aLE = line.Split(SeparatorElems);
-
-                    // debug message
-                    System.Console.WriteLine(line);                    
                 }
             } catch(Exception e)
             {
