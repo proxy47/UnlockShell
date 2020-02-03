@@ -13,6 +13,8 @@ namespace UnlockShell
     public partial class Form1 : Form
     {
         public List<ListEntry> array_LE;
+        public String database_name_s = @".\database.ini";
+
         public Form1()
         {
             InitializeComponent();
@@ -20,6 +22,11 @@ namespace UnlockShell
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            LoadFromFile lff = new LoadFromFile();
+            array_LE = lff.loadValues();
+
+        }
+    }
 
     public class ListEntry
     {
@@ -52,6 +59,53 @@ namespace UnlockShell
             return this.exePath_s;
         }
     }
+
+    public enum My_enum{
+        MODEL_NAME        = 0,
+        MANUFACTURER_NAME    ,
+        DESTINATION_NAME     ,
+        EXECUTABLE_PATH      ,
+        PART_NO_LIST         ,
+        INI_FILE_MAX_NB
+    };
+
+    public class LoadFromFile
+    {
+        private const char SeparatorElems  = ';';
+        private const char SeparatorPartNo = ','; 
+        private List<ListEntry> loadedValues_aLE = new List<ListEntry>();
+
+        public LoadFromFile()
+        {
+            try
+            {
+                string[] lines = System.IO.File.ReadAllLines(@".\database.ini");
+
+                foreach (string line in lines)
+                {
+                    string[] elems_of_line = line.Split(SeparatorElems);
+                    if (elems_of_line != null)
+                    {
+                        this.loadedValues_aLE.Add(new ListEntry(elems_of_line[(int)My_enum.MODEL_NAME],
+                                                                elems_of_line[(int)My_enum.MANUFACTURER_NAME],
+                                                                elems_of_line[(int)My_enum.DESTINATION_NAME],
+                                                                elems_of_line[(int)My_enum.EXECUTABLE_PATH],
+                                                                elems_of_line[(int)My_enum.PART_NO_LIST])
+                                                 );
+                    }
+
+                    // debug message
+                    System.Console.WriteLine(line);                    
+                }
+            } catch(Exception e)
+            {
+                System.Console.WriteLine("Exception caught: " + e.ToString());
+            }
+        }
+
+        public List<ListEntry> loadValues()
+        {
+            return this.loadedValues_aLE;
         }
     }
 }
