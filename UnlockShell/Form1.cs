@@ -71,14 +71,19 @@ namespace UnlockShell
 
     public class LoadFromFile
     {
-        private const char SeparatorElems  = ';';
-        private const char SeparatorPartNo = ','; 
+        private const char   SeparatorElems      = ';';
+        private const char   SeparatorPartNo     = ',';
+        private const string database_ini_file_s = @".\database.ini";
         private List<ListEntry> loadedValues_aLE = new List<ListEntry>();
 
         public LoadFromFile()
         {
             try
             {
+                if (!System.IO.File.Exists(database_ini_file_s))
+                {
+                    System.IO.File.Create(database_ini_file_s);
+                }
                 string[] lines = System.IO.File.ReadAllLines(@".\database.ini");
 
                 foreach (string line in lines)
