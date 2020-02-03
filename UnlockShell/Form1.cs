@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.ComponentModel;
 
 namespace UnlockShell
 {
@@ -48,13 +50,15 @@ namespace UnlockShell
             my_sb = f2.returnStringBuilt();
 
             array_LE.Add(my_sb.ToString().Split(';'));
-            array_LE.Sort();
 
             listView1.Items.Clear();
             foreach (var le in array_LE)
             {
                 listView1.Items.Add(new ListViewItem(le));
             }
+
+            listView1.Sort();
+            listView1.Refresh();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -73,13 +77,15 @@ namespace UnlockShell
 
                 array_LE.RemoveAt(index);
                 array_LE.Add(my_sb.ToString().Split(';'));
-                array_LE.Sort();
-
+                
                 listView1.Items.Clear();
                 foreach (var le in array_LE)
                 {
                     listView1.Items.Add(new ListViewItem(le));
                 }
+
+                listView1.Sort();
+                listView1.Refresh();
             }
         }
 
@@ -90,12 +96,37 @@ namespace UnlockShell
                 int index = listView1.SelectedIndices[0];
                 
                 array_LE.RemoveAt(index);
-                array_LE.Sort();
-
+                
                 listView1.Items.Clear();
                 foreach (var le in array_LE)
                 {
                     listView1.Items.Add(new ListViewItem(le));
+                }
+
+                listView1.Sort();
+                listView1.Refresh();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count != 0)
+            {
+                int index = listView1.SelectedIndices[0];
+                
+                try
+                {
+                    using (Process myProcess = new Process())
+                    {
+                        myProcess.StartInfo.UseShellExecute = false;
+                        myProcess.StartInfo.FileName = array_LE[index][4];
+                        myProcess.StartInfo.CreateNoWindow = false;
+                        myProcess.Start();
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
                 }
             }
         }

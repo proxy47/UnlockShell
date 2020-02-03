@@ -146,7 +146,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "exe";
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Executable Files (*.exe)|*.exe|All Files(*.*)|(*.*)";
             this.openFileDialog1.InitialDirectory = "@\"C:\\\"";
             this.openFileDialog1.RestoreDirectory = true;
