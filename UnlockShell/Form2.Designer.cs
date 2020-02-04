@@ -1,6 +1,6 @@
 ﻿namespace UnlockShell
 {
-    partial class Form2
+    partial class AddRemoveElemForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,8 +38,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.BrowseExeLocBtn = new System.Windows.Forms.Button();
+            this.SaveEntryBtn = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
@@ -123,25 +123,25 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Executable Path:";
             // 
-            // button1
+            // BrowseExeLocBtn
             // 
-            this.button1.Location = new System.Drawing.Point(12, 264);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Browse";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.BrowseExeLocBtn.Location = new System.Drawing.Point(12, 264);
+            this.BrowseExeLocBtn.Name = "BrowseExeLocBtn";
+            this.BrowseExeLocBtn.Size = new System.Drawing.Size(75, 23);
+            this.BrowseExeLocBtn.TabIndex = 10;
+            this.BrowseExeLocBtn.Text = "Browse";
+            this.BrowseExeLocBtn.UseVisualStyleBackColor = true;
+            this.BrowseExeLocBtn.Click += new System.EventHandler(this.BrowseExeLocBtn_Click);
             // 
-            // button2
+            // SaveEntryBtn
             // 
-            this.button2.Location = new System.Drawing.Point(173, 264);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.SaveEntryBtn.Location = new System.Drawing.Point(173, 264);
+            this.SaveEntryBtn.Name = "SaveEntryBtn";
+            this.SaveEntryBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveEntryBtn.TabIndex = 11;
+            this.SaveEntryBtn.Text = "Save";
+            this.SaveEntryBtn.UseVisualStyleBackColor = true;
+            this.SaveEntryBtn.Click += new System.EventHandler(this.SaveEntryBtn_Click);
             // 
             // openFileDialog1
             // 
@@ -151,13 +151,13 @@
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "Browse for executable file";
             // 
-            // Form2
+            // AddRemoveElemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(266, 303);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SaveEntryBtn);
+            this.Controls.Add(this.BrowseExeLocBtn);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox4);
@@ -168,10 +168,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Form2";
+            this.Name = "AddRemoveElemForm";
             this.Text = "Add/modify element";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddRemoveElemForm_FormClosing);
+            this.Load += new System.EventHandler(this.AddRemoveElemForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,8 +189,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button BrowseExeLocBtn;
+        private System.Windows.Forms.Button SaveEntryBtn;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

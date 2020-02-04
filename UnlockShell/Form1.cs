@@ -1,33 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.ComponentModel;
 
 namespace UnlockShell
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public List<string[]> array_LE;
         public StringBuilder my_sb = new StringBuilder();
+        private LoadFromFile lff = new LoadFromFile();
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            LoadFromFile lff = new LoadFromFile();
-            array_LE = lff.loadValues();
+            lff.LoadValues();
+            array_LE = lff.GetLoadedValues();
 
             listView1.FullRowSelect = true;
             listView1.Items.Clear();
@@ -37,16 +33,16 @@ namespace UnlockShell
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddElemBtn_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2();
+            AddRemoveElemForm f2 = new AddRemoveElemForm();
             f2.ShowDialog();
 
             while (f2.valueSet_b != true)
             {
                 System.Threading.Thread.Sleep(1000);
             }
-            my_sb = f2.returnStringBuilt();
+            my_sb = f2.ReturnStringBuilt();
 
             array_LE.Add(my_sb.ToString().Split(';'));
 
@@ -60,19 +56,19 @@ namespace UnlockShell
             listView1.Refresh();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void EditElemBtn_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices.Count != 0)
             {
                 int index = listView1.SelectedIndices[0];
-                Form2 f2 = new Form2(array_LE.ElementAt(index));
+                AddRemoveElemForm f2 = new AddRemoveElemForm(array_LE.ElementAt(index));
                 f2.ShowDialog();
 
                 while (f2.valueSet_b != true)
                 {
                     System.Threading.Thread.Sleep(1000);
                 }
-                my_sb = f2.returnStringBuilt();
+                my_sb = f2.ReturnStringBuilt();
 
                 array_LE.RemoveAt(index);
                 array_LE.Add(my_sb.ToString().Split(';'));
@@ -88,7 +84,7 @@ namespace UnlockShell
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void RemoveElemBtn_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices.Count != 0)
             {
@@ -107,12 +103,12 @@ namespace UnlockShell
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void LaunchElemBtn_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices.Count != 0)
             {
                 int index = listView1.SelectedIndices[0];
-                
+
                 try
                 {
                     using (Process myProcess = new Process())
@@ -147,7 +143,7 @@ namespace UnlockShell
         private const string database_ini_file_s = @".\database.txt";
         private List<string[]> loadedValues_aLE = new List<string[]>();
 
-        public LoadFromFile()
+        public void LoadValues()
         {
             try
             {
@@ -161,13 +157,14 @@ namespace UnlockShell
                 {
                     loadedValues_aLE.Add(line.Split(SeparatorElems));
                 }
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 System.Console.WriteLine("Exception caught: " + e.ToString());
             }
         }
 
-        public List<string[]> loadValues()
+        public List<string[]> GetLoadedValues()
         {
             return this.loadedValues_aLE;
         }

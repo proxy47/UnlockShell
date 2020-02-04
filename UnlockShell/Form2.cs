@@ -10,25 +10,20 @@ using System.Windows.Forms;
 
 namespace UnlockShell
 {
-    public partial class Form2 : Form
+    public partial class AddRemoveElemForm : Form
     {
         StringBuilder sb = new StringBuilder();
         public string[] stringarray;
         public bool valueSet_b = false;
 
-        public StringBuilder returnStringBuilt()
-        {
-            return sb;
-        }
-
-        public Form2()
+        public AddRemoveElemForm()
         {
             InitializeComponent();
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
         }
 
-        public Form2(string[] stringarray)
+        public AddRemoveElemForm(string[] stringarray)
         {
             this.stringarray = stringarray;
             InitializeComponent();
@@ -36,7 +31,7 @@ namespace UnlockShell
             this.MinimumSize = this.Size;
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void AddRemoveElemForm_Load(object sender, EventArgs e)
         {
             if (stringarray != null)
             {
@@ -56,7 +51,29 @@ namespace UnlockShell
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void AddRemoveElemForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (sb.Equals(String.Empty))
+            {
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+                sb.Append(';');
+                sb.Append(" ");
+            }
+            valueSet_b = true;
+        }
+
+        public StringBuilder ReturnStringBuilt()
+        {
+            return sb;
+        }
+
+        private void BrowseExeLocBtn_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -64,14 +81,14 @@ namespace UnlockShell
             }
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void SaveEntryBtn_Click(object sender, EventArgs e)
         {
             if (((textBox1.Text != null) && (textBox1.Text != String.Empty)) &&
                 ((textBox5.Text != null) && (textBox5.Text != String.Empty)))
             {
                 sb.Append(textBox1.Text.ToString());
                 sb.Append(';');
-                sb.Append((textBox2.Text.ToString() != String.Empty)?textBox2.Text.ToString():" ");
+                sb.Append((textBox2.Text.ToString() != String.Empty) ? textBox2.Text.ToString() : " ");
                 sb.Append(';');
                 sb.Append((textBox3.Text.ToString() != String.Empty) ? textBox3.Text.ToString() : " ");
                 sb.Append(';');
@@ -80,38 +97,9 @@ namespace UnlockShell
                 sb.Append(textBox5.Text.ToString());
             }
 
-            if (sb.Equals(String.Empty))
-            {
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-            }
             valueSet_b = true;
 
             this.Close();
-        }
-
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (sb.Equals(String.Empty))
-            {
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-            }
-            valueSet_b = true;
         }
     }
 }
