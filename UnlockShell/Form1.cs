@@ -168,5 +168,32 @@ namespace UnlockShell
         {
             return this.loadedValues_aLE;
         }
+
+        public void WriteValues(List<string[]> listWrite)
+        {
+            try
+            {
+                // Delete contents of database
+                System.IO.File.WriteAllText(database_ini_file_s, string.Empty);
+                System.IO.StreamWriter file = new System.IO.StreamWriter(database_ini_file_s);
+                // Write contents of current database
+                foreach (string[] string_elem in listWrite)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach (string elem in string_elem)
+                    {
+                        sb.Append(elem);
+                        sb.Append(";");
+                    }
+                    sb.Remove(sb.Length - 1, 1);
+                    file.WriteLine(sb.ToString());
+                    file.Flush();
+                }
+                file.Close();                
+            } catch (Exception e)
+            {
+                System.Console.WriteLine("Exception caught: " + e.ToString());
+            }
+        }
     }
 }
