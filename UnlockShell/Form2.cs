@@ -12,10 +12,13 @@ namespace UnlockShell
 {
     public partial class AddRemoveElemForm : Form
     {
-        StringBuilder sb = new StringBuilder();
+        #region Variables
+        private StringBuilder sb = new StringBuilder();
         public string[] stringarray;
         public bool valueSet_b = false;
+        #endregion
 
+        #region Constructors
         public AddRemoveElemForm()
         {
             InitializeComponent();
@@ -30,7 +33,9 @@ namespace UnlockShell
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
         }
+        #endregion
 
+        #region Form Events
         private void AddRemoveElemForm_Load(object sender, EventArgs e)
         {
             if (stringarray != null)
@@ -67,7 +72,9 @@ namespace UnlockShell
             }
             valueSet_b = true;
         }
+        #endregion
 
+        #region Methods
         public StringBuilder ReturnStringBuilt()
         {
             return sb;
@@ -101,5 +108,6 @@ namespace UnlockShell
 
             this.Close();
         }
+        #endregion
     }
 }

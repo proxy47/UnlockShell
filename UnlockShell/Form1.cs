@@ -9,17 +9,22 @@ namespace UnlockShell
 {
     public partial class MainForm : Form
     {
+        #region Variables
         public List<string[]> array_LE;
         public StringBuilder my_sb = new StringBuilder();
         private LoadFromFile lff = new LoadFromFile();
+        #endregion
 
+        #region Constructors
         public MainForm()
         {
             InitializeComponent();
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
         }
+        #endregion
 
+        #region Form Events
         private void MainForm_Load(object sender, EventArgs e)
         {
             lff.LoadValues();
@@ -32,7 +37,9 @@ namespace UnlockShell
                 listView1.Items.Add(new ListViewItem(le));
             }
         }
+        #endregion
 
+        #region Methods
         private void AddElemBtn_Click(object sender, EventArgs e)
         {
             AddRemoveElemForm f2 = new AddRemoveElemForm();
@@ -54,6 +61,7 @@ namespace UnlockShell
 
             listView1.Sort();
             listView1.Refresh();
+            lff.WriteValues(array_LE);
         }
 
         private void EditElemBtn_Click(object sender, EventArgs e)
@@ -81,11 +89,13 @@ namespace UnlockShell
 
                 listView1.Sort();
                 listView1.Refresh();
+                lff.WriteValues(array_LE);
             }
         }
 
         private void RemoveElemBtn_Click(object sender, EventArgs e)
         {
+            lff.WriteValues(this.array_LE);
             if (listView1.SelectedIndices.Count != 0)
             {
                 int index = listView1.SelectedIndices[0];
@@ -100,6 +110,7 @@ namespace UnlockShell
 
                 listView1.Sort();
                 listView1.Refresh();
+                lff.WriteValues(array_LE);
             }
         }
 
@@ -125,24 +136,19 @@ namespace UnlockShell
                 }
             }
         }
+        #endregion
     }
-
-    public enum My_enum{
-        MODEL_NAME        = 0,
-        MANUFACTURER_NAME    ,
-        DESTINATION_NAME     ,
-        EXECUTABLE_PATH      ,
-        PART_NO_LIST         ,
-        INI_FILE_MAX_NB
-    };
 
     public class LoadFromFile
     {
+        #region Variables
         private const char   SeparatorElems      = ';';
         private const char   SeparatorPartNo     = ',';
         private const string database_ini_file_s = @".\database.txt";
         private List<string[]> loadedValues_aLE = new List<string[]>();
+        #endregion
 
+        #region Methods
         public void LoadValues()
         {
             try
@@ -195,5 +201,6 @@ namespace UnlockShell
                 System.Console.WriteLine("Exception caught: " + e.ToString());
             }
         }
+        #endregion
     }
 }
