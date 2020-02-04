@@ -1,3 +1,14 @@
 ./.vs/
 ./UnlockShell/obj/
 ./UnlockShell/bin/
+
+/.vs/UnlockShell/v15/Server/sqlite3/db.lock
+/.vs/UnlockShell/v15/Server/sqlite3/storage.ide
+/.vs/UnlockShell/v15/Server/sqlite3/storage.ide-shm
+/.vs/UnlockShell/v15/Server/sqlite3/storage.ide-wal
+/UnlockShell/bin/Debug/database.txt
+/UnlockShell/bin/Debug/UnlockShell.exe.config
+/UnlockShell/obj/Debug/UnlockShell.AddRemoveElemForm.resources
+/UnlockShell/obj/Debug/UnlockShell.csproj.FileListAbsolute.txt
+/UnlockShell/obj/Debug/UnlockShell.MainForm.resources
+/UnlockShell/obj/Debug/UnlockShell.Properties.Resources.resources
