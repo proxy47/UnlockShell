@@ -16,7 +16,6 @@ namespace UnlockShell
     {
         public List<string[]> array_LE;
         public StringBuilder my_sb = new StringBuilder();
-        public String database_name_s = @".\database.ini";
 
         public Form1()
         {
@@ -145,7 +144,7 @@ namespace UnlockShell
     {
         private const char   SeparatorElems      = ';';
         private const char   SeparatorPartNo     = ',';
-        private const string database_ini_file_s = @".\database.ini";
+        private const string database_ini_file_s = @".\database.txt";
         private List<string[]> loadedValues_aLE = new List<string[]>();
 
         public LoadFromFile()
@@ -156,7 +155,7 @@ namespace UnlockShell
                 {
                     System.IO.File.Create(database_ini_file_s);
                 }
-                string[] lines = System.IO.File.ReadAllLines(@".\database.ini");
+                string[] lines = System.IO.File.ReadAllLines(database_ini_file_s);
 
                 foreach (string line in lines)
                 {
