@@ -38,6 +38,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.LaunchElemBtn = new System.Windows.Forms.Button();
             this.AddElemBtn = new System.Windows.Forms.Button();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,11 +58,12 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5});
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(2, 4);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(540, 343);
+            this.listView1.Size = new System.Drawing.Size(636, 343);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -105,12 +107,12 @@
             this.panel1.Controls.Add(this.EditElemBtn);
             this.panel1.Location = new System.Drawing.Point(10, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(547, 386);
+            this.panel1.Size = new System.Drawing.Size(641, 386);
             this.panel1.TabIndex = 4;
             // 
             // LaunchElemBtn
             // 
-            this.LaunchElemBtn.Location = new System.Drawing.Point(423, 352);
+            this.LaunchElemBtn.Location = new System.Drawing.Point(519, 352);
             this.LaunchElemBtn.Name = "LaunchElemBtn";
             this.LaunchElemBtn.Size = new System.Drawing.Size(119, 29);
             this.LaunchElemBtn.TabIndex = 5;
@@ -128,11 +130,16 @@
             this.AddElemBtn.UseVisualStyleBackColor = true;
             this.AddElemBtn.Click += new System.EventHandler(this.AddElemBtn_Click);
             // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "EEPROM";
+            this.columnHeader5.Width = 100;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 407);
+            this.ClientSize = new System.Drawing.Size(662, 407);
             this.Controls.Add(this.panel1);
             this.Name = "MainForm";
             this.Text = "Unlock Shell";
@@ -153,6 +160,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button AddElemBtn;
         private System.Windows.Forms.Button LaunchElemBtn;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }
 

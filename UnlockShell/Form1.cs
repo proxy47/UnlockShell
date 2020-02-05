@@ -9,8 +9,9 @@ namespace UnlockShell
 {
     public partial class MainForm : Form
     {
+        private const char Separator = ';';
         #region Variables
-        public List<string[]> array_LE;
+        public List<ListElement> array_LE;
         public StringBuilder my_sb = new StringBuilder();
         private LoadFromFile lff = new LoadFromFile();
         #endregion
@@ -33,31 +34,64 @@ namespace UnlockShell
             listView1.FullRowSelect = true;
             listView1.Items.Clear();
             foreach (var le in array_LE)
-            {
-                listView1.Items.Add(new ListViewItem(le));
-            }
+                // Add newly created item
+                listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
         }
         #endregion
 
         #region Methods
+        private string[] ConvertListElemToStringArray(ListElement le)
+        {
+            StringBuilder ret_sb = new StringBuilder();
+            ret_sb.Append(le.model_s + Separator);
+            ret_sb.Append(le.manufacturer_s + Separator);
+            ret_sb.Append(le.destination_s + Separator);
+            
+            // Re-compose PartNumber for ListViewEntry
+            StringBuilder sb = new StringBuilder();
+            foreach (var partNo_s in le.partNumber_s)
+                sb.Append(partNo_s + ",");
+
+            sb.Remove(sb.Length - 1, 1);
+            ret_sb.Append(sb.ToString() + Separator);
+
+            ret_sb.Append(le.eeprom_s + Separator);
+            ret_sb.Append(le.executablePath_s);
+
+            return ret_sb.ToString().Split(Separator);
+        }
+
+        private ListElement ConvertStringArrayToListElem(string[] stringArray)
+        {
+            ListElement le = new ListElement();
+
+            le.model_s          = stringArray[(int)DatabaseIndexes.DB_MODEL_INDEX];
+            le.manufacturer_s   = stringArray[(int)DatabaseIndexes.DB_MANUFACTURER_INDEX];
+            le.destination_s    = stringArray[(int)DatabaseIndexes.DB_DESTINATION_INDEX];
+            le.eeprom_s         = stringArray[(int)DatabaseIndexes.DB_EEPROM_INDEX];
+            le.executablePath_s = stringArray[(int)DatabaseIndexes.DB_EXECUTABLE_PATH_INDEX];
+
+            string[] partNoList = stringArray[(int)DatabaseIndexes.DB_PARTNUMBER_INDEX].Split(',');
+
+            foreach (var partNo_s in partNoList)
+                le.partNumber_s.Add(partNo_s);
+
+            return le;
+        }
+
         private void AddElemBtn_Click(object sender, EventArgs e)
         {
             AddRemoveElemForm f2 = new AddRemoveElemForm();
             f2.ShowDialog();
 
-            while (f2.valueSet_b != true)
-            {
-                System.Threading.Thread.Sleep(1000);
-            }
             my_sb = f2.ReturnStringBuilt();
 
-            array_LE.Add(my_sb.ToString().Split(';'));
+            array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
+            array_LE.Sort();
 
             listView1.Items.Clear();
             foreach (var le in array_LE)
-            {
-                listView1.Items.Add(new ListViewItem(le));
-            }
+                listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
 
             listView1.Sort();
             listView1.Refresh();
@@ -69,22 +103,19 @@ namespace UnlockShell
             if (listView1.SelectedIndices.Count != 0)
             {
                 int index = listView1.SelectedIndices[0];
-                AddRemoveElemForm f2 = new AddRemoveElemForm(array_LE.ElementAt(index));
+                AddRemoveElemForm f2 = new AddRemoveElemForm(ConvertListElemToStringArray(array_LE.ElementAt(index)));
                 f2.ShowDialog();
-
-                while (f2.valueSet_b != true)
-                {
-                    System.Threading.Thread.Sleep(1000);
-                }
+            
                 my_sb = f2.ReturnStringBuilt();
 
                 array_LE.RemoveAt(index);
-                array_LE.Add(my_sb.ToString().Split(';'));
-                
+                array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
+                array_LE.Sort();
+
                 listView1.Items.Clear();
                 foreach (var le in array_LE)
                 {
-                    listView1.Items.Add(new ListViewItem(le));
+                    listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
                 }
 
                 listView1.Sort();
@@ -101,12 +132,11 @@ namespace UnlockShell
                 int index = listView1.SelectedIndices[0];
                 
                 array_LE.RemoveAt(index);
-                
+                array_LE.Sort();
+
                 listView1.Items.Clear();
                 foreach (var le in array_LE)
-                {
-                    listView1.Items.Add(new ListViewItem(le));
-                }
+                    listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
 
                 listView1.Sort();
                 listView1.Refresh();
@@ -125,7 +155,7 @@ namespace UnlockShell
                     using (Process myProcess = new Process())
                     {
                         myProcess.StartInfo.UseShellExecute = false;
-                        myProcess.StartInfo.FileName = array_LE[index][4];
+                        myProcess.StartInfo.FileName = array_LE[index].executablePath_s;
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
@@ -145,7 +175,7 @@ namespace UnlockShell
         private const char   SeparatorElems      = ';';
         private const char   SeparatorPartNo     = ',';
         private const string database_ini_file_s = @".\database.txt";
-        private List<string[]> loadedValues_aLE = new List<string[]>();
+        private List<ListElement> loadedValues_aLE = new List<ListElement>();
         #endregion
 
         #region Methods
@@ -157,11 +187,20 @@ namespace UnlockShell
                 {
                     System.IO.File.Create(database_ini_file_s);
                 }
-                string[] lines = System.IO.File.ReadAllLines(database_ini_file_s);
+                string[] database_lines_s = System.IO.File.ReadAllLines(database_ini_file_s);
 
-                foreach (string line in lines)
+                foreach (string current_line in database_lines_s)
                 {
-                    loadedValues_aLE.Add(line.Split(SeparatorElems));
+                    string[] line_elements = current_line.Split(SeparatorElems);
+                    string[] partNoList = line_elements[(int)DatabaseIndexes.DB_PARTNUMBER_INDEX].Split(SeparatorPartNo);
+                    List<string> PartNumber_ls = new List<string>(partNoList);
+
+                    loadedValues_aLE.Add(new ListElement(line_elements[(int)DatabaseIndexes.DB_MODEL_INDEX],
+                                                         line_elements[(int)DatabaseIndexes.DB_MANUFACTURER_INDEX],
+                                                         line_elements[(int)DatabaseIndexes.DB_DESTINATION_INDEX],
+                                                         line_elements[(int)DatabaseIndexes.DB_EXECUTABLE_PATH_INDEX],
+                                                         line_elements[(int)DatabaseIndexes.DB_EEPROM_INDEX],
+                                                         PartNumber_ls));
                 }
             }
             catch (Exception e)
@@ -170,27 +209,35 @@ namespace UnlockShell
             }
         }
 
-        public List<string[]> GetLoadedValues()
+        public List<ListElement> GetLoadedValues()
         {
             return this.loadedValues_aLE;
         }
 
-        public void WriteValues(List<string[]> listWrite)
+        public void WriteValues(List<ListElement> listWrite)
         {
             try
             {
                 // Delete contents of database
                 System.IO.File.WriteAllText(database_ini_file_s, string.Empty);
                 System.IO.StreamWriter file = new System.IO.StreamWriter(database_ini_file_s);
+                
                 // Write contents of current database
-                foreach (string[] string_elem in listWrite)
+                foreach (ListElement listElement in listWrite)
                 {
                     StringBuilder sb = new StringBuilder();
-                    foreach (string elem in string_elem)
+
+                    sb.Append(listElement.model_s + ";");
+                    sb.Append(listElement.manufacturer_s + ";");
+                    sb.Append(listElement.destination_s + ";");
+                    sb.Append(listElement.executablePath_s + ";");
+                    sb.Append(listElement.eeprom_s + ";");
+
+                    foreach (string partNoEntries in listElement.partNumber_s)
                     {
-                        sb.Append(elem);
-                        sb.Append(";");
+                        sb.Append(partNoEntries + ",");
                     }
+                    
                     sb.Remove(sb.Length - 1, 1);
                     file.WriteLine(sb.ToString());
                     file.Flush();
@@ -202,5 +249,57 @@ namespace UnlockShell
             }
         }
         #endregion
+    }
+
+    public class ListElement:IComparable<ListElement>
+    {
+        #region Variables
+        public string       model_s;
+        public string       manufacturer_s;
+        public string       destination_s;
+        public string       executablePath_s;
+        public string       eeprom_s;
+        public List<string> partNumber_s;
+        #endregion
+
+        #region Constructors
+        public ListElement()
+        {
+            this.model_s          = string.Empty;
+            this.manufacturer_s   = string.Empty;
+            this.destination_s    = string.Empty;
+            this.executablePath_s = string.Empty;
+            this.eeprom_s         = string.Empty;
+            this.partNumber_s     = new List<string>();
+        }
+
+        public ListElement(string model_s, string manufacturer_s, string destination_s, string executablePath_s, string eeprom_s, List<string> partNumber_s)
+        {
+            this.model_s = model_s ?? throw new ArgumentNullException(nameof(model_s));
+            this.manufacturer_s = manufacturer_s ?? throw new ArgumentNullException(nameof(manufacturer_s));
+            this.destination_s = destination_s ?? throw new ArgumentNullException(nameof(destination_s));
+            this.executablePath_s = executablePath_s ?? throw new ArgumentNullException(nameof(executablePath_s));
+            this.eeprom_s = eeprom_s ?? throw new ArgumentNullException(nameof(eeprom_s));
+            this.partNumber_s = partNumber_s ?? throw new ArgumentNullException(nameof(partNumber_s));
+        }
+        #endregion
+
+        #region Methods
+        public int CompareTo(ListElement le)
+        {
+            return model_s.CompareTo(le.model_s);
+        }
+        #endregion
+    }
+
+    public enum DatabaseIndexes
+    {
+        DB_MODEL_INDEX        = 0,
+        DB_MANUFACTURER_INDEX    ,
+        DB_DESTINATION_INDEX     ,
+        DB_PARTNUMBER_INDEX      ,
+        DB_EEPROM_INDEX          ,
+        DB_EXECUTABLE_PATH_INDEX ,
+        DB_INDEX_NB
     }
 }
