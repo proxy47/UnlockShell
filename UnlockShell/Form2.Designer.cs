@@ -61,13 +61,6 @@
             this.textBox1.Size = new System.Drawing.Size(236, 20);
             this.textBox1.TabIndex = 1;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(12, 73);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(236, 20);
-            this.textBox2.TabIndex = 3;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -77,12 +70,12 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Manufacturer:";
             // 
-            // textBox3
+            // textBox2
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 125);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(236, 20);
-            this.textBox3.TabIndex = 5;
+            this.textBox2.Location = new System.Drawing.Point(12, 73);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(236, 20);
+            this.textBox2.TabIndex = 3;
             // 
             // label3
             // 
@@ -93,12 +86,12 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Destination:";
             // 
-            // textBox4
+            // textBox3
             // 
-            this.textBox4.Location = new System.Drawing.Point(12, 175);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(236, 20);
-            this.textBox4.TabIndex = 7;
+            this.textBox3.Location = new System.Drawing.Point(12, 125);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(236, 20);
+            this.textBox3.TabIndex = 5;
             // 
             // label4
             // 
@@ -109,12 +102,28 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Part Number:";
             // 
-            // textBox6
+            // textBox4
             // 
-            this.textBox6.Location = new System.Drawing.Point(12, 281);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(236, 20);
-            this.textBox6.TabIndex = 11;
+            this.textBox4.Location = new System.Drawing.Point(12, 175);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(236, 20);
+            this.textBox4.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 212);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "EEPROM:";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(12, 228);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(236, 20);
+            this.textBox5.TabIndex = 9;
             // 
             // label6
             // 
@@ -124,6 +133,13 @@
             this.label6.Size = new System.Drawing.Size(88, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Executable Path:";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(12, 281);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(236, 20);
+            this.textBox6.TabIndex = 11;
             // 
             // BrowseExeLocBtn
             // 
@@ -152,22 +168,6 @@
             this.openFileDialog1.InitialDirectory = "@\"C:\\\"";
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "Browse for executable file";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(12, 228);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(236, 20);
-            this.textBox5.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 212);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "EEPROM:";
             // 
             // AddRemoveElemForm
             // 
