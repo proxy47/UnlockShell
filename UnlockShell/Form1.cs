@@ -14,7 +14,7 @@ namespace UnlockShell
         // Working List - Loaded written to database
         public List<ListElement> array_LE;
         // View List    - Represented in ListView, filtered or unfiltered
-        public List<ListElement> viewArray_LE;
+        public List<ListElement> viewArray_LE = new List<ListElement>();
         public StringBuilder my_sb = new StringBuilder();
         private LoadFromFile lff = new LoadFromFile();
         #endregion
@@ -33,7 +33,10 @@ namespace UnlockShell
         {
             lff.LoadValues();
             array_LE = lff.GetLoadedValues();
-            viewArray_LE = array_LE;
+            viewArray_LE.Clear();
+
+            foreach (var elem_in_array in array_LE)
+                viewArray_LE.Add(elem_in_array);
 
             listView1.FullRowSelect = true;
             listView1.Items.Clear();
@@ -93,7 +96,10 @@ namespace UnlockShell
             if (!my_sb.ToString().Equals(String.Empty)) {
                 array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
                 array_LE.Sort();
-                viewArray_LE = array_LE;
+                viewArray_LE.Clear();
+
+                foreach (var elem_in_array in array_LE)
+                    viewArray_LE.Add(elem_in_array);
 
                 listView1.Items.Clear();
                 foreach (var le in viewArray_LE)
@@ -120,7 +126,10 @@ namespace UnlockShell
                     array_LE.RemoveAt(index);
                     array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
                     array_LE.Sort();
-                    viewArray_LE = array_LE;
+                    viewArray_LE.Clear();
+
+                    foreach (var elem_in_array in array_LE)
+                        viewArray_LE.Add(elem_in_array);
 
                     listView1.Items.Clear();
                     foreach (var le in viewArray_LE)
@@ -144,7 +153,10 @@ namespace UnlockShell
                 
                 array_LE.RemoveAt(index);
                 array_LE.Sort();
-                viewArray_LE = array_LE;
+                viewArray_LE.Clear();
+
+                foreach (var elem_in_array in array_LE)
+                    viewArray_LE.Add(elem_in_array);
 
                 listView1.Items.Clear();
                 foreach (var le in viewArray_LE)
@@ -179,6 +191,37 @@ namespace UnlockShell
             }
         }
         #endregion
+
+        private void FilterTextBox_TextChanged(object sender, EventArgs e)
+        {
+            viewArray_LE.Clear();
+
+            foreach (var elem_in_array in array_LE)
+                viewArray_LE.Add(elem_in_array);
+
+            foreach (ListElement listElement in viewArray_LE)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (string partNo_s in listElement.partNumber_s)
+                    sb.Append(partNo_s + '|');
+
+                if (!listElement.model_s.ToUpper().Contains(this.FilterTextBox.Text.ToUpper()) && !sb.ToString().ToUpper().Contains(this.FilterTextBox.Text.ToUpper()))
+                    viewArray_LE.Remove(listElement);
+
+                if (viewArray_LE.Count == 0)
+                    break;
+            }
+
+            listView1.Items.Clear();
+            if (viewArray_LE.Count != 0)
+            {
+                foreach (var le in viewArray_LE)
+                    listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
+            }
+            listView1.Sort();
+            listView1.Refresh();
+        }
     }
 
     public class LoadFromFile
