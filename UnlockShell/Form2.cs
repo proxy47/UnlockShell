@@ -15,7 +15,6 @@ namespace UnlockShell
         #region Variables
         private StringBuilder sb = new StringBuilder();
         public string[] stringarray;
-        public bool valueSet_b = false;
         #endregion
 
         #region Constructors
@@ -45,6 +44,7 @@ namespace UnlockShell
                 textBox3.Text = stringarray[2].ToString();
                 textBox4.Text = stringarray[3].ToString();
                 textBox5.Text = stringarray[4].ToString();
+                textBox6.Text = stringarray[5].ToString();
             }
             else
             {
@@ -53,6 +53,7 @@ namespace UnlockShell
                 textBox3.Text = String.Empty;
                 textBox4.Text = String.Empty;
                 textBox5.Text = String.Empty;
+                textBox6.Text = String.Empty;
             }
         }
 
@@ -60,17 +61,8 @@ namespace UnlockShell
         {
             if (sb.Equals(String.Empty))
             {
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
-                sb.Append(';');
-                sb.Append(" ");
+                sb.Append(" ; ; ; ; ; ");
             }
-            valueSet_b = true;
         }
         #endregion
 
@@ -84,27 +76,22 @@ namespace UnlockShell
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                textBox5.Text = openFileDialog1.FileName;
+                textBox6.Text = openFileDialog1.FileName;
             }
         }
 
         private void SaveEntryBtn_Click(object sender, EventArgs e)
         {
             if (((textBox1.Text != null) && (textBox1.Text != String.Empty)) &&
-                ((textBox5.Text != null) && (textBox5.Text != String.Empty)))
+                ((textBox6.Text != null) && (textBox6.Text != String.Empty)))
             {
-                sb.Append(textBox1.Text.ToString());
-                sb.Append(';');
-                sb.Append((textBox2.Text.ToString() != String.Empty) ? textBox2.Text.ToString() : " ");
-                sb.Append(';');
-                sb.Append((textBox3.Text.ToString() != String.Empty) ? textBox3.Text.ToString() : " ");
-                sb.Append(';');
-                sb.Append((textBox4.Text.ToString() != String.Empty) ? textBox4.Text.ToString() : " ");
-                sb.Append(';');
-                sb.Append(textBox5.Text.ToString());
+                sb.Append(textBox1.Text.ToString() + ';');
+                sb.Append(((textBox2.Text.ToString() != String.Empty) ? textBox2.Text.ToString() : " ") + ';');
+                sb.Append(((textBox3.Text.ToString() != String.Empty) ? textBox3.Text.ToString() : " ") + ';');
+                sb.Append(((textBox4.Text.ToString() != String.Empty) ? textBox4.Text.ToString() : " ") + ';');
+                sb.Append(((textBox5.Text.ToString() != String.Empty) ? textBox5.Text.ToString() : " ") + ';');
+                sb.Append(textBox6.Text.ToString());
             }
-
-            valueSet_b = true;
 
             this.Close();
         }
