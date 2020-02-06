@@ -108,10 +108,12 @@ namespace UnlockShell
             
                 my_sb = f2.ReturnStringBuilt();
 
-                array_LE.RemoveAt(index);
-                array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
-                array_LE.Sort();
-
+                if (!my_sb.ToString().Equals(string.Empty))
+                {
+                    array_LE.RemoveAt(index);
+                    array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
+                    array_LE.Sort();
+                }
                 listView1.Items.Clear();
                 foreach (var le in array_LE)
                 {
