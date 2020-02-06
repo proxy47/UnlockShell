@@ -11,7 +11,10 @@ namespace UnlockShell
     {
         private const char Separator = ';';
         #region Variables
+        // Working List - Loaded written to database
         public List<ListElement> array_LE;
+        // View List    - Represented in ListView, filtered or unfiltered
+        public List<ListElement> viewArray_LE;
         public StringBuilder my_sb = new StringBuilder();
         private LoadFromFile lff = new LoadFromFile();
         #endregion
@@ -30,10 +33,11 @@ namespace UnlockShell
         {
             lff.LoadValues();
             array_LE = lff.GetLoadedValues();
+            viewArray_LE = array_LE;
 
             listView1.FullRowSelect = true;
             listView1.Items.Clear();
-            foreach (var le in array_LE)
+            foreach (var le in viewArray_LE)
                 // Add newly created item
                 listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
         }
@@ -86,16 +90,19 @@ namespace UnlockShell
 
             my_sb = f2.ReturnStringBuilt();
 
-            array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
-            array_LE.Sort();
+            if (!my_sb.ToString().Equals(String.Empty)) {
+                array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
+                array_LE.Sort();
+                viewArray_LE = array_LE;
 
-            listView1.Items.Clear();
-            foreach (var le in array_LE)
-                listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
+                listView1.Items.Clear();
+                foreach (var le in viewArray_LE)
+                    listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
 
-            listView1.Sort();
-            listView1.Refresh();
-            lff.WriteValues(array_LE);
+                listView1.Sort();
+                listView1.Refresh();
+                lff.WriteValues(array_LE);
+            }
         }
 
         private void EditElemBtn_Click(object sender, EventArgs e)
@@ -105,7 +112,7 @@ namespace UnlockShell
                 int index = listView1.SelectedIndices[0];
                 AddRemoveElemForm f2 = new AddRemoveElemForm(ConvertListElemToStringArray(array_LE.ElementAt(index)));
                 f2.ShowDialog();
-            
+
                 my_sb = f2.ReturnStringBuilt();
 
                 if (!my_sb.ToString().Equals(string.Empty))
@@ -113,16 +120,18 @@ namespace UnlockShell
                     array_LE.RemoveAt(index);
                     array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
                     array_LE.Sort();
-                }
-                listView1.Items.Clear();
-                foreach (var le in array_LE)
-                {
-                    listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
-                }
+                    viewArray_LE = array_LE;
 
-                listView1.Sort();
-                listView1.Refresh();
-                lff.WriteValues(array_LE);
+                    listView1.Items.Clear();
+                    foreach (var le in viewArray_LE)
+                    {
+                        listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
+                    }
+
+                    listView1.Sort();
+                    listView1.Refresh();
+                    lff.WriteValues(array_LE);
+                }
             }
         }
 
@@ -135,9 +144,10 @@ namespace UnlockShell
                 
                 array_LE.RemoveAt(index);
                 array_LE.Sort();
+                viewArray_LE = array_LE;
 
                 listView1.Items.Clear();
-                foreach (var le in array_LE)
+                foreach (var le in viewArray_LE)
                     listView1.Items.Add(new ListViewItem(ConvertListElemToStringArray(le)));
 
                 listView1.Sort();
