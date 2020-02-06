@@ -39,8 +39,8 @@
             this.LaunchElemBtn = new System.Windows.Forms.Button();
             this.AddElemBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.FilterTextBoxLabel = new System.Windows.Forms.Label();
             this.FilterTextBox = new System.Windows.Forms.TextBox();
+            this.FilterTextBoxLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -138,6 +138,14 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
+            // FilterTextBox
+            // 
+            this.FilterTextBox.Location = new System.Drawing.Point(6, 384);
+            this.FilterTextBox.Name = "FilterTextBox";
+            this.FilterTextBox.Size = new System.Drawing.Size(251, 20);
+            this.FilterTextBox.TabIndex = 1;
+            this.FilterTextBox.TextChanged += new System.EventHandler(this.FilterTextBox_TextChanged);
+            // 
             // FilterTextBoxLabel
             // 
             this.FilterTextBoxLabel.AutoSize = true;
@@ -146,13 +154,6 @@
             this.FilterTextBoxLabel.Size = new System.Drawing.Size(126, 13);
             this.FilterTextBoxLabel.TabIndex = 0;
             this.FilterTextBoxLabel.Text = "Filter by Model or PartNo:";
-            // 
-            // FilterTextBox
-            // 
-            this.FilterTextBox.Location = new System.Drawing.Point(6, 384);
-            this.FilterTextBox.Name = "FilterTextBox";
-            this.FilterTextBox.Size = new System.Drawing.Size(251, 20);
-            this.FilterTextBox.TabIndex = 1;
             // 
             // groupBox2
             // 
@@ -171,8 +172,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(815, 436);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Name = "MainForm";
             this.Text = "Unlock Shell";
             this.Load += new System.EventHandler(this.MainForm_Load);
