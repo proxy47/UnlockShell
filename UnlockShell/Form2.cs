@@ -61,7 +61,7 @@ namespace UnlockShell
         {
             if (sb.Equals(String.Empty))
             {
-                sb.Append(" ; ; ; ; ; ");
+                sb.Append(";;;;;");
             }
         }
         #endregion
@@ -86,10 +86,10 @@ namespace UnlockShell
                 ((textBox6.Text != null) && (textBox6.Text != String.Empty)))
             {
                 sb.Append(textBox1.Text.ToString() + ';');
-                sb.Append(((textBox2.Text.ToString() != String.Empty) ? textBox2.Text.ToString() : " ") + ';');
-                sb.Append(((textBox3.Text.ToString() != String.Empty) ? textBox3.Text.ToString() : " ") + ';');
-                sb.Append(((textBox4.Text.ToString() != String.Empty) ? textBox4.Text.ToString() : " ") + ';');
-                sb.Append(((textBox5.Text.ToString() != String.Empty) ? textBox5.Text.ToString() : " ") + ';');
+                sb.Append(((textBox2.Text.ToString() != String.Empty) ? textBox2.Text.ToString() : String.Empty) + ';');
+                sb.Append(((textBox3.Text.ToString() != String.Empty) ? textBox3.Text.ToString() : String.Empty) + ';');
+                sb.Append(((textBox4.Text.ToString() != String.Empty) ? textBox4.Text.ToString() : String.Empty) + ';');
+                sb.Append(((textBox5.Text.ToString() != String.Empty) ? textBox5.Text.ToString() : String.Empty) + ';');
                 sb.Append(textBox6.Text.ToString());
             }
 
