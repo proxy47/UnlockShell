@@ -285,15 +285,17 @@ namespace UnlockShell
                     sb.Append(listElement.model_s + ";");
                     sb.Append(listElement.manufacturer_s + ";");
                     sb.Append(listElement.destination_s + ";");
-                    sb.Append(listElement.executablePath_s + ";");
-                    sb.Append(listElement.eeprom_s + ";");
-
+                    
                     foreach (string partNoEntries in listElement.partNumber_s)
                     {
                         sb.Append(partNoEntries + ",");
                     }
-                    
                     sb.Remove(sb.Length - 1, 1);
+                    sb.Append(";");
+
+                    sb.Append(listElement.eeprom_s + ";");
+                    sb.Append(listElement.executablePath_s);
+
                     file.WriteLine(sb.ToString());
                     file.Flush();
                 }
