@@ -199,7 +199,7 @@ namespace UnlockShell
             foreach (var elem_in_array in array_LE)
                 viewArray_LE.Add(elem_in_array);
 
-            foreach (ListElement listElement in viewArray_LE)
+            foreach (ListElement listElement in array_LE)
             {
                 StringBuilder sb = new StringBuilder();
 
@@ -207,7 +207,8 @@ namespace UnlockShell
                     sb.Append(partNo_s + '|');
 
                 if (!listElement.model_s.ToUpper().Contains(this.FilterTextBox.Text.ToUpper()) && !sb.ToString().ToUpper().Contains(this.FilterTextBox.Text.ToUpper()))
-                    viewArray_LE.Remove(listElement);
+                    if (viewArray_LE.Contains(listElement))
+                        viewArray_LE.Remove(listElement);
 
                 if (viewArray_LE.Count == 0)
                     break;
