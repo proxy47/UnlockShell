@@ -199,7 +199,7 @@ namespace UnlockShell
             foreach (var elem_in_array in array_LE)
                 viewArray_LE.Add(elem_in_array);
 
-            foreach (ListElement listElement in viewArray_LE)
+            foreach (ListElement listElement in array_LE)
             {
                 StringBuilder sb = new StringBuilder();
 
@@ -207,7 +207,8 @@ namespace UnlockShell
                     sb.Append(partNo_s + '|');
 
                 if (!listElement.model_s.ToUpper().Contains(this.FilterTextBox.Text.ToUpper()) && !sb.ToString().ToUpper().Contains(this.FilterTextBox.Text.ToUpper()))
-                    viewArray_LE.Remove(listElement);
+                    if (viewArray_LE.Contains(listElement))
+                        viewArray_LE.Remove(listElement);
 
                 if (viewArray_LE.Count == 0)
                     break;
@@ -285,15 +286,17 @@ namespace UnlockShell
                     sb.Append(listElement.model_s + ";");
                     sb.Append(listElement.manufacturer_s + ";");
                     sb.Append(listElement.destination_s + ";");
-                    sb.Append(listElement.executablePath_s + ";");
-                    sb.Append(listElement.eeprom_s + ";");
-
+                    
                     foreach (string partNoEntries in listElement.partNumber_s)
                     {
                         sb.Append(partNoEntries + ",");
                     }
-                    
                     sb.Remove(sb.Length - 1, 1);
+                    sb.Append(";");
+
+                    sb.Append(listElement.eeprom_s + ";");
+                    sb.Append(listElement.executablePath_s);
+
                     file.WriteLine(sb.ToString());
                     file.Flush();
                 }
