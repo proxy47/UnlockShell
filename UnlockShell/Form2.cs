@@ -76,7 +76,29 @@ namespace UnlockShell
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                textBox6.Text = openFileDialog1.FileName;
+                if (String.IsNullOrEmpty(System.Reflection.Assembly.GetEntryAssembly().CodeBase))  throw new ArgumentNullException("UnlockShell Path");
+                if (String.IsNullOrEmpty(openFileDialog1.FileName)) throw new ArgumentNullException("Executable Path");
+
+                Uri fromUri = new Uri(Application.StartupPath);
+                Uri toUri   = new Uri(openFileDialog1.FileName);
+
+                if (fromUri.Scheme != toUri.Scheme)
+                {
+                    // Path can't be made relative
+                    textBox6.Text = openFileDialog1.FileName;
+                }
+                else
+                {
+                    Uri relativeUri = fromUri.MakeRelativeUri(toUri);
+                    String relativePath = Uri.UnescapeDataString(relativeUri.ToString());
+
+                    if (toUri.Scheme.Equals("file", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        relativePath = relativePath.Replace(System.IO.Path.AltDirectorySeparatorChar, System.IO.Path.DirectorySeparatorChar);
+                    }
+
+                    textBox6.Text = relativePath;
+                }
             }
         }
 

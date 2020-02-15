@@ -179,7 +179,14 @@ namespace UnlockShell
                     using (Process myProcess = new Process())
                     {
                         myProcess.StartInfo.UseShellExecute = false;
-                        myProcess.StartInfo.FileName = array_LE[index].executablePath_s;
+
+                        // Re-create fullpath
+                        Uri relativePath = new Uri(array_LE[index].executablePath_s, UriKind.Relative);
+                        string exeFile = new System.Uri(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).AbsolutePath;
+                        string Dir = System.IO.Path.GetDirectoryName(exeFile);
+                        string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Dir, array_LE[index].executablePath_s));
+
+                        myProcess.StartInfo.FileName = path;
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
