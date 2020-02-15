@@ -179,7 +179,7 @@ namespace UnlockShell
                     using (Process myProcess = new Process())
                     {
                         myProcess.StartInfo.UseShellExecute = false;
-                        myProcess.StartInfo.FileName = array_LE[index].executablePath_s;
+                        myProcess.StartInfo.FileName = viewArray_LE[index].executablePath_s;
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
