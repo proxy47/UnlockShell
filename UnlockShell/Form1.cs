@@ -151,12 +151,17 @@ namespace UnlockShell
             {
                 int index = listView1.SelectedIndices[0];
                 
-                array_LE.RemoveAt(index);
-                array_LE.Sort();
-                viewArray_LE.Clear();
+                foreach (var elem_MarkedForDeletion in array_LE)
+                {
+                    if (elem_MarkedForDeletion == viewArray_LE[index])
+                    {
+                        array_LE.Remove(elem_MarkedForDeletion);
+                        break;
+                    }
+                }
 
-                foreach (var elem_in_array in array_LE)
-                    viewArray_LE.Add(elem_in_array);
+                viewArray_LE.RemoveAt(index);
+                viewArray_LE.Sort();
 
                 listView1.Items.Clear();
                 foreach (var le in viewArray_LE)
