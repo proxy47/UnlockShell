@@ -116,20 +116,25 @@ namespace UnlockShell
             if (listView1.SelectedIndices.Count != 0)
             {
                 int index = listView1.SelectedIndices[0];
-                AddRemoveElemForm f2 = new AddRemoveElemForm(ConvertListElemToStringArray(array_LE.ElementAt(index)));
+                AddRemoveElemForm f2 = new AddRemoveElemForm(ConvertListElemToStringArray(viewArray_LE.ElementAt(index)));
                 f2.ShowDialog();
 
                 my_sb = f2.ReturnStringBuilt();
 
                 if (!my_sb.ToString().Equals(string.Empty))
                 {
-                    array_LE.RemoveAt(index);
-                    array_LE.Add(ConvertStringArrayToListElem(my_sb.ToString().Split(Separator)));
-                    array_LE.Sort();
-                    viewArray_LE.Clear();
-
+                    int index_array_LE = -1;
                     foreach (var elem_in_array in array_LE)
-                        viewArray_LE.Add(elem_in_array);
+                    {
+                        index_array_LE++;
+                        if (viewArray_LE[index] == elem_in_array)
+                            break;
+                    }
+
+                    viewArray_LE[index] = ConvertStringArrayToListElem(my_sb.ToString().Split(Separator));
+                    viewArray_LE.Sort();
+
+                    array_LE[index_array_LE] = viewArray_LE[index];
 
                     listView1.Items.Clear();
                     foreach (var le in viewArray_LE)
@@ -146,17 +151,22 @@ namespace UnlockShell
 
         private void RemoveElemBtn_Click(object sender, EventArgs e)
         {
-            lff.WriteValues(this.array_LE);
+           // lff.WriteValues(this.array_LE);
             if (listView1.SelectedIndices.Count != 0)
             {
                 int index = listView1.SelectedIndices[0];
                 
-                array_LE.RemoveAt(index);
-                array_LE.Sort();
-                viewArray_LE.Clear();
+                foreach (var elem_MarkedForDeletion in array_LE)
+                {
+                    if (elem_MarkedForDeletion == viewArray_LE[index])
+                    {
+                        array_LE.Remove(elem_MarkedForDeletion);
+                        break;
+                    }
+                }
 
-                foreach (var elem_in_array in array_LE)
-                    viewArray_LE.Add(elem_in_array);
+                viewArray_LE.RemoveAt(index);
+                viewArray_LE.Sort();
 
                 listView1.Items.Clear();
                 foreach (var le in viewArray_LE)
@@ -179,7 +189,7 @@ namespace UnlockShell
                     using (Process myProcess = new Process())
                     {
                         myProcess.StartInfo.UseShellExecute = false;
-                        myProcess.StartInfo.FileName = array_LE[index].executablePath_s;
+                        myProcess.StartInfo.FileName = viewArray_LE[index].executablePath_s;
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
