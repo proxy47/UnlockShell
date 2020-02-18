@@ -45,9 +45,9 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // EditElemBtn
-            //
+            // 
             this.EditElemBtn.Location = new System.Drawing.Point(5, 54);
             this.EditElemBtn.Name = "EditElemBtn";
             this.EditElemBtn.Size = new System.Drawing.Size(119, 29);
@@ -55,9 +55,9 @@
             this.EditElemBtn.Text = "Edit";
             this.EditElemBtn.UseVisualStyleBackColor = true;
             this.EditElemBtn.Click += new System.EventHandler(this.EditElemBtn_Click);
-            //
+            // 
             // listView1
-            //
+            // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -71,34 +71,34 @@
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            //
+            // 
             // columnHeader1
-            //
+            // 
             this.columnHeader1.Text = "Model";
             this.columnHeader1.Width = 230;
-            //
+            // 
             // columnHeader2
-            //
+            // 
             this.columnHeader2.Text = "Manufacturer";
             this.columnHeader2.Width = 230;
-            //
+            // 
             // columnHeader3
-            //
+            // 
             this.columnHeader3.Text = "Destination";
             this.columnHeader3.Width = 230;
-            //
+            // 
             // columnHeader4
-            //
+            // 
             this.columnHeader4.Text = "Part No.";
             this.columnHeader4.Width = 400;
-            //
+            // 
             // columnHeader5
-            //
+            // 
             this.columnHeader5.Text = "EEPROM";
             this.columnHeader5.Width = 230;
-            //
+            // 
             // RemoveElemBtn
-            //
+            // 
             this.RemoveElemBtn.Location = new System.Drawing.Point(5, 89);
             this.RemoveElemBtn.Name = "RemoveElemBtn";
             this.RemoveElemBtn.Size = new System.Drawing.Size(119, 29);
@@ -106,9 +106,9 @@
             this.RemoveElemBtn.Text = "Remove";
             this.RemoveElemBtn.UseVisualStyleBackColor = true;
             this.RemoveElemBtn.Click += new System.EventHandler(this.RemoveElemBtn_Click);
-            //
+            // 
             // LaunchElemBtn
-            //
+            // 
             this.LaunchElemBtn.Location = new System.Drawing.Point(5, 616);
             this.LaunchElemBtn.Name = "LaunchElemBtn";
             this.LaunchElemBtn.Size = new System.Drawing.Size(119, 29);
@@ -116,9 +116,9 @@
             this.LaunchElemBtn.Text = "Launch";
             this.LaunchElemBtn.UseVisualStyleBackColor = true;
             this.LaunchElemBtn.Click += new System.EventHandler(this.LaunchElemBtn_Click);
-            //
+            // 
             // AddElemBtn
-            //
+            // 
             this.AddElemBtn.Location = new System.Drawing.Point(5, 19);
             this.AddElemBtn.Name = "AddElemBtn";
             this.AddElemBtn.Size = new System.Drawing.Size(119, 29);
@@ -126,9 +126,9 @@
             this.AddElemBtn.Text = "Add";
             this.AddElemBtn.UseVisualStyleBackColor = true;
             this.AddElemBtn.Click += new System.EventHandler(this.AddElemBtn_Click);
-            //
+            // 
             // groupBox1
-            //
+            // 
             this.groupBox1.Controls.Add(this.FilterTextBox);
             this.groupBox1.Controls.Add(this.FilterTextBoxLabel);
             this.groupBox1.Controls.Add(this.listView1);
@@ -137,26 +137,26 @@
             this.groupBox1.Size = new System.Drawing.Size(1336, 651);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
-            //
+            // 
             // FilterTextBox
-            //
+            // 
             this.FilterTextBox.Location = new System.Drawing.Point(6, 625);
             this.FilterTextBox.Name = "FilterTextBox";
             this.FilterTextBox.Size = new System.Drawing.Size(251, 20);
             this.FilterTextBox.TabIndex = 1;
             this.FilterTextBox.TextChanged += new System.EventHandler(this.FilterTextBox_TextChanged);
-            //
+            // 
             // FilterTextBoxLabel
-            //
+            // 
             this.FilterTextBoxLabel.AutoSize = true;
             this.FilterTextBoxLabel.Location = new System.Drawing.Point(3, 609);
             this.FilterTextBoxLabel.Name = "FilterTextBoxLabel";
             this.FilterTextBoxLabel.Size = new System.Drawing.Size(126, 13);
             this.FilterTextBoxLabel.TabIndex = 0;
             this.FilterTextBoxLabel.Text = "Filter by Model or PartNo:";
-            //
+            // 
             // groupBox2
-            //
+            // 
             this.groupBox2.Controls.Add(this.LaunchElemBtn);
             this.groupBox2.Controls.Add(this.RemoveElemBtn);
             this.groupBox2.Controls.Add(this.EditElemBtn);
@@ -166,16 +166,16 @@
             this.groupBox2.Size = new System.Drawing.Size(132, 651);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            //
+            // 
             // MainForm
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1502, 676);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
-            this.Text = "Unlock Shell";
+            this.Text = "Unlock Shell - V3.2";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
